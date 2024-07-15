@@ -1,0 +1,26 @@
+{% load static %}
+<section class="top-nav">
+    <div class="logo">
+        <a href="{% url 'home' %}">TicketEase</a>
+    </div>
+    <nav class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="">Tickets</a>
+        <a href="">Dashboard</a>
+    </nav>
+    <section class="auth">
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' username=user.username %}" class="avatar avatar--medium active">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
+                {% else %}  
+                    <img src="{% static 'media/avatars/default_avatar.svg' %}" alt="{{ user.username }}" />
+                {% endif %}
+            </a>
+            <a href="{% url 'account_logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+            <a href="{% url 'account_signup' %}">Register</a>
+        {% endif %}
+    </section>
+</section>

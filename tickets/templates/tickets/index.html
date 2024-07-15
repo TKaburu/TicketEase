@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'tickets/styles/main.css' %}">
+    {% block css %} {% endblock %}
+    <title>{% block title %} {% endblock %}  TicketEase</title>
+</head>
+<body>
+    {% include 'tickets/navbar.html' %}
+    <div class="content-container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</body>
+</html>
