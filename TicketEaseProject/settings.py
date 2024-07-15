@@ -65,6 +65,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_ADAPTER = 'accounts.adapters.TicketEaseAdapter'
 
+# custom signup form for allauth to use
+
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.CustomSignUpForm',
+    'login': 'accounts.forms.CustomLoginForm'
+}
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',  # will use allauth for authentication
