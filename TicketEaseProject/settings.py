@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # local installs
     'accounts.apps.AccountsConfig',
+    'tickets.apps.TicketsConfig',
 
     # Third party installs
     'allauth',
