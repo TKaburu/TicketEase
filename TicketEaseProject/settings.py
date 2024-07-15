@@ -64,6 +64,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'  # user is redurected to login pag
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_REDIRECT_URL = 'account_login'
 ACCOUNT_ADAPTER = 'accounts.adapters.TicketEaseAdapter'
 
 # custom signup form for allauth to use
@@ -78,12 +79,14 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',  # will use allauth for authentication
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ROOT_URLCONF = 'TicketEaseProject.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -146,6 +149,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'tickets', 'static'),
+
+]
 
 #  media settings
 MEDIA_URL = '/media/'
