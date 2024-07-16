@@ -22,7 +22,7 @@
                 </button>
                 |
                 <button>
-                    <a href="{% url 'tickets-view' %}?status=pending" style="color: white;">Pending ({{ pending_count }})</a>
+                    <a href="{% url 'tickets-view' %}?status=assigned" style="color: white;">Assigned ({{ assigned_count }})</a>
                 </button>
                 |
                 <button>
@@ -34,7 +34,7 @@
         <section class="search-bar-container">
                 
             <form class="search-bar method="GET" action="{% url 'tickets-view' %}">
-                <input type="text" name="q" placeholder="Search...">
+                <input type="text" name="q" placeholder="Search ticket...">
                 <button type="submit">Search</button>
             </form>
         </section>
@@ -46,7 +46,7 @@
             <div>Description</div>
             <div>Status</div>
             <div>Created By</div>
-            <div>Created At</div>
+            <div>Assigned To</div>
         </div>
         {% for ticket in tickets %}
         <div class="ticket-row">
@@ -55,7 +55,11 @@
             <div>{{ ticket.description }}</div>
             <div>{{ ticket.status }}</div>
             <div>{{ ticket.created_by.username }}</div>
-            <div>{{ ticket.created_at }}</div>
+            {% if assingned_to %}
+                <div>{{ ticket.assingned_to.username }}</div>
+            {% else %}
+                <div><p>-</p></div>
+            {% endif %}
         </div>
         {% endfor %}
     </section>
