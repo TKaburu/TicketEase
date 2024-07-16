@@ -1,0 +1,64 @@
+{% extends 'tickets/index.html' %}
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static  'tickets/styles/tickets.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="ticket-container">
+    <div class="title">
+        <h1>All Tickets</h1>
+    </div>
+    <section class="search-filters">
+        <section class="status-filters">
+            <div class="filter-btns">
+                <button>
+                    <a href="{% url 'tickets-view' %}?status=" style="color: white;">All ({{ all_count }})</a>
+                </button>
+                |
+                <button>
+                    <a href="{% url 'tickets-view' %}?status=open" style="color: white;">Open ({{ open_count }})</a>
+                </button>
+                |
+                <button>
+                    <a href="{% url 'tickets-view' %}?status=pending" style="color: white;">Pending ({{ pending_count }})</a>
+                </button>
+                |
+                <button>
+                    <a href="{% url 'tickets-view' %}?status=closed" style="color: white;">Closed ({{ closed_count }})</a>
+                </button>
+            </div>
+        </section>
+        <!-- search bar -->
+        <section class="search-bar-container">
+                
+            <form class="search-bar method="GET" action="{% url 'tickets-view' %}">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+    </section>
+    <section class="ticket-list">
+        <div class="ticket-row header">
+            <div>Ticket Number</div>
+            <div>Title</div>
+            <div>Description</div>
+            <div>Status</div>
+            <div>Created By</div>
+            <div>Created At</div>
+        </div>
+        {% for ticket in tickets %}
+        <div class="ticket-row">
+            <div>{{ ticket.ticket_id }}</div>
+            <div>{{ ticket.title }}</div>
+            <div>{{ ticket.description }}</div>
+            <div>{{ ticket.status }}</div>
+            <div>{{ ticket.created_by.username }}</div>
+            <div>{{ ticket.created_at }}</div>
+        </div>
+        {% endfor %}
+    </section>
+</section>
+
+{% endblock %}
