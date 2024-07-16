@@ -1,0 +1,52 @@
+.ticket-container {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.search-filters {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.status-filters {
+    display: flex;
+    align-items: center;
+}
+
+.filter-btns button {
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin: 0 5px;
+}
+
+.filter-btns a {
+    color: white;
+    text-decoration: none;
+}
+
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.ticket-row.header {
+    font-weight: bold;
+    /* background-color: #f1f1f1; */
+}
+
+.ticket-row > div {
+    flex: 1;
+    text-align: center;
+}

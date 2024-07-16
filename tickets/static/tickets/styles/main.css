@@ -1,0 +1,214 @@
+/* <=============  Universal styling ============> */
+:root {
+    --box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --button-color: rgb(201, 14, 201);
+    --button-color-hover: rgb(128, 0, 128);
+    --text-color: rgba(52, 19, 19, 0.733);
+    --text-color-light: white;
+    --title-color: rgb(201, 14, 201);
+
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button {
+    background-color: var(--button-color);
+    border-color: transparent;
+    border-radius: 5px;
+    color: var(--text-color-light);
+    font-size: 16px;
+    padding: 7px;
+    width: fit-content;
+}
+
+
+button:hover {
+    background-color: var(--button-color-hover);
+
+}
+
+.link a {
+    color: var(--text-color-light);
+}
+
+.link a:hover {
+    color: var(--button-color-hover);
+}
+
+.empty {
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    color: var(--text-color);
+    height: 100%;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+.empty p {
+    font-size: 20px;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    padding: 7px;
+    margin-bottom: 20px;
+    
+}
+
+.title h1 {
+    color: var(--title-color);
+    font-size: 30px;
+
+}
+
+
+.cancel-confirm-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+/* search bar */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.search-bar input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 8px 12px;
+    background-color: var(--button-color);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 0 5px 5px 0;
+}
+
+.auth-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* <============= end of universal styling ============> */
+
+/* <=============  navbar styling ============> */
+
+.top-nav {
+    align-items: center;
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    padding: 10px;
+}
+
+.top-nav a {
+    color: var(--text-color);
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.nav-links {
+    font-size: 18px;
+    display: flex;
+    gap: 7px;
+}
+
+.auth {
+    font-size: 18px;
+    display: flex;
+    gap: 7px;
+}
+
+/* <============= end of navbar ============> */
+
+.content-container {
+    margin: 10px;
+    padding: 10px;
+}
+
+/* <============= user authentication ============> */
+
+.account-container {
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    padding: 10px;
+    width: fit-content;
+}
+
+.account-auth {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: fit-content; */
+}
+
+.account-auth form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: center;
+}
+
+.account-auth form input,
+.account-auth form select,
+.account-auth form textarea,
+.account-auth form label[type="text"] {
+    border-radius: 5px;
+    width: 100%;
+    padding: 8px;
+    margin: 8px;
+}
+
+.account-auth p {
+    font-size: 18px;
+    padding: 7px;
+}
+
+.remember-me-password-reset {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.remember-me label {
+    white-space: nowrap;  /* so that the check box and lable are on the same line */
+}
+
+/* <============= end of user authentication ============> */
