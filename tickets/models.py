@@ -9,7 +9,7 @@ class Ticket(models.Model):
     """
     STATUS = (
         ('open', 'open'),
-        ('pending', 'pending'),
+        ('assigned', 'assigned'),
         ('closed', 'closed'),
     )
     ticket_id = models.UUIDField(default=uuid.uuid4)
@@ -41,3 +41,21 @@ class Ticket(models.Model):
         # TODO: add the name of the client as well
         return self.title
     
+class TicketMessage(models.Model):
+    """
+    This class defines a ticket message
+    """
+    sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='messages')
+    message = models.TextField()
+    updated_on = models.DateTimeField(auto_now=True)
+    sent_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated_on']
+
+    def __str__(self):
+        """
+        String represantation of the TicketMessage class
+        """
+        return f"Message by {self.sender} on {self.ticket}"

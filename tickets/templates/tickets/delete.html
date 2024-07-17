@@ -1,0 +1,16 @@
+<!-- This is a dynamic delete template that will be able
+to selete multiple things like an event, account etc ... -->
+{%extends 'tickets/index.html'%}
+
+{% block content %}
+<div class="delete-obj">
+    <form method="post" action="">
+        {% csrf_token %}
+        <p>Are you sure you want to delete '{{obj}}'? </p>
+        <div class="del-back">
+            <button><a href="{{ request.META.HTTP_REFERER }}">Go back</a></button> <!-- Go back to the previous page -->
+            <button type="submit">Confirm</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

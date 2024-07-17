@@ -1,0 +1,89 @@
+{% extends 'tickets/index.html' %}
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static  'tickets/styles/ticket-details.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="detail-ticket-container">
+    <section class="ticket-header">
+        <div class="client-details">
+            <h3>{{ticket.created_by.first_name}} {{ ticket.created_by.last_name }}</h3>
+            
+        </div>
+        <div class="ticket-info">
+            <div class="ticket-details">
+                <h3>Ticket Number: {{ ticket.ticket_id }}</h3>
+            </div>
+            <div class="ticket-details">
+                <h3>Created on: {{ ticket.created_on | date:'F j, Y' }}</h3>
+            </div>
+        </div>
+    </section>
+    <div class="title">
+        <h1>{{ticket.title}}</h1>
+    </div>
+    <div class="ticket-status">
+        <h4> Status: {{ ticket.status }}</h4>
+    </div>
+    <div class="message-client-sections">
+        <section class="messages-section">
+            {% for ticket_message in msg %}
+            <div class="message">
+                <div class="message-header">
+                    <div class="sender-info">
+                        <!-- <div class="message-avatar">
+                            <img src="{% static 'tickets/images/user-avatar-placeholder.png' %}" alt="User Avatar">
+                        </div> -->
+                        <div class="message-info">
+                            <div class="sender-name">
+                                <h4>@{{ ticket_message.sender.username }}</h4>
+                            </div>
+                            <div class="time-sent">
+                                <p>{{ ticket_message.sent_on|timesince }} ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-body">
+                    <p>{{ ticket_message.message }}</p>
+                </div>
+                {% if ticket_message.sender == request.user %}
+                <form class="delete-button" method="post" action="{% url 'delete-message' msg_id=ticket_message.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="message-form">
+                <form method="post">
+                    {% csrf_token %}
+                    <textarea name="message" id="message-input" cols="100" rows="10" placeholder="Send a message..."></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </section>
+        <section class="clients-tickets">
+            <section class="title">
+                <h4>{{ ticket.created_by.first_name }} {{ ticket.created_by.last_name }}'s Tickets</h4>
+
+            </section>
+            <div class="ticket-list">
+                <div class="ticket-row header">
+                    <div>Ticket Number</div>
+                    <div>Title</div>
+                    <div>Status</div>
+                </div>
+                <div class="ticket-row">
+                    <div class="ticket_number"> <a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.ticket_id }}</a></div>
+                    <div><a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.title }}</a></div>
+                    <div>{{ ticket.status }}</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock %}
