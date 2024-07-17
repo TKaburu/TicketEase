@@ -10,12 +10,13 @@
     </nav>
     <section class="auth">
         {% if user.is_authenticated %}
-            <a href="{% url 'profile' username=user.username %}" class="avatar avatar--medium active">
+            <a href="#" class="avatar avatar--medium active">
                 {% if user.avatar %}
                     <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
                 {% else %}  
                     <img src="{% static 'media/avatars/default_avatar.svg' %}" alt="{{ user.username }}" />
                 {% endif %}
+                {{user.username}}
             </a>
             <a href="{% url 'account_logout' %}">Logout</a>
         {% else %}
