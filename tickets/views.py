@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
 from .forms import *
+import datetime  # for the accepted time for the ticket
 
 # home view
 def home(request):
@@ -98,3 +99,26 @@ def deleteMessage(request, msg_id):
         
     
     return render(request, 'tickets/delete.html', {'obj': message})
+
+# <==================== Engineers views ====================>
+
+@login_required(login_url=('account_login'))
+def acceptTicket(request, slug):
+    """
+    logic for engineer accepting a ticket
+    Args:
+        slug: the slug of the ticket
+    """
+    ticket = get_object_or_404(Ticket, slug=slug)
+
+    if request.user.user_type == 'engineer':
+    
+        ticket.status = 'assigned'
+        ticket.assigned_to = request.user
+        ticket.accepted_on = datetime.datetime.now()
+        ticket.save()
+    # else:
+    #     messages.warning(request, f'Only engineers can accept a ticket!')
+    #     return redirect('ticket_details', slug=slug)
+
+    return redirect('tickets-view')

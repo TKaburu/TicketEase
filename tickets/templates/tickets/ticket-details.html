@@ -24,8 +24,27 @@
     <div class="title">
         <h1>{{ticket.title}}</h1>
     </div>
-    <div class="ticket-status">
-        <h4> Status: {{ ticket.status }}</h4>
+    <div class="ticket-status" style="display: flex; justify-content: space-around;">
+        <div class="status">
+            <h4> Status: {{ ticket.status }}</h4>
+        </div>
+        {% if ticket.status == 'open' and request.user.is_authenticated  and request.user.user_type == 'engineer'%}
+        <div class="btn-assigned">
+            <div class="accept-btn">
+                <form method="post" action="{% url 'accept-ticket' slug=ticket.slug %}">
+                    {% csrf_token %}
+                    <button type="submit">Accept Ticket</button>
+                </form>
+            </div>
+        {% elif ticket.status == 'assigned' %}
+            <div class="accepted">
+                <h4>Assigned to: {{ ticket.assigned_to }}</h4>
+            </div>
+        {% endif %}
+        </div>
+            
+            
+        
     </div>
     <div class="message-client-sections">
         <section class="messages-section">
