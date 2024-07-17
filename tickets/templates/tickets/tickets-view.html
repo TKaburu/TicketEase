@@ -61,6 +61,10 @@
             {% else %}
                 <div><p>-</p></div>
             {% endif %}
+        {% empty %}
+            <div class="empty">
+                <p>There are no tickets</p>
+            </div>
         </div>
         {% endfor %}
     </section>
