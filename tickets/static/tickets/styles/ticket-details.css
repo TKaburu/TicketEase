@@ -1,0 +1,149 @@
+.detail-ticket-container {
+    margin: 20px;
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.client-details {
+    display: flex;
+    align-items: center;
+}
+
+
+.client-details h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+
+.ticket-details {
+    padding: 15px 0;
+    color: var(--text-color);
+}
+
+.message-client-sections {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    padding: 10px;
+    margin: 20px;
+}
+
+.messages-section{
+    box-shadow: var(--box-shadow);
+    max-height: fit-content;
+    border-radius: 5px;
+    padding-right: 20px;
+    width: 90%;
+}
+
+.message {
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.message-form form {
+    margin: 10px;
+    
+}
+
+.message-form form textarea {
+    padding: 20px;
+    color: var(--text-color);
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+}
+
+.message-form form button {
+    margin-top: 15px;
+    margin-left: 90%;
+}
+
+.message-body {
+    margin: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.ticket-status {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.ticket-status h4 {
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.time-sent {
+    margin-right: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.sender-info {
+    display: flex;
+    align-items: center;
+}
+
+.message-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.ticket-row.header {
+    font-weight: bold;
+}
+
+
+.ticket-row  > div {
+    flex: 1;
+    text-align: center;
+    
+}
+
+.ticket_number {
+    word-wrap: break-word;
+    max-width: 100px;
+}
+
+.delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-button button {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+}

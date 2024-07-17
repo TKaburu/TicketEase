@@ -48,9 +48,10 @@
             <div>Created By</div>
             <div>Assigned To</div>
         </div>
+        
         {% for ticket in tickets %}
         <div class="ticket-row">
-            <div>{{ ticket.ticket_id }}</div>
+            <div> <a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.ticket_id }}</a></div>
             <div>{{ ticket.title }}</div>
             <div>{{ ticket.description }}</div>
             <div>{{ ticket.status }}</div>

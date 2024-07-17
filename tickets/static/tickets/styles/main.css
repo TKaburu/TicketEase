@@ -31,10 +31,8 @@ button {
     width: fit-content;
 }
 
-
 button:hover {
     background-color: var(--button-color-hover);
-
 }
 
 .link a {
@@ -64,15 +62,16 @@ button:hover {
 .title {
     text-align: center;
     padding: 7px;
-    margin-bottom: 20px;
+    color: var(--title-color);
+    font-size: 30px;
     
 }
 
-.title h1 {
+/* .title h1 {
     color: var(--title-color);
     font-size: 30px;
 
-}
+} */
 
 
 .cancel-confirm-btns {
