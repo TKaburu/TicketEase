@@ -7,5 +7,6 @@ urlpatterns = [
     path('tickets/<slug:slug>/', ticketDetails, name='ticket-details'),
     path('create-ticket/', createTicket, name='create-ticket'),
     path('tickets/<slug:slug>/accept/', acceptTicket, name='accept-ticket'),
+    path('tickets/<slug:slug>/close/', closeTicket, name='close-ticket'),
     path('delete-message/<int:msg_id>/', deleteMessage, name='delete-message'),
 ]

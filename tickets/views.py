@@ -138,3 +138,21 @@ def acceptTicket(request, slug):
     #     return redirect('ticket_details', slug=slug)
 
     return redirect('tickets-view')
+
+@login_required(login_url=('account_login'))
+def closeTicket(request, slug):
+    """
+    logic for closing a ticket by the accepted engineer when it is resolved
+    Args:
+        slug: the ticket slug
+    """
+    ticket = get_object_or_404(Ticket, slug=slug)
+
+    if request.user == ticket.assigned_to:
+        ticket.status = 'closed'
+        ticket.closed_on = datetime.datetime.now()
+        ticket.save()
+
+    return redirect('tickets-view')
+
+
