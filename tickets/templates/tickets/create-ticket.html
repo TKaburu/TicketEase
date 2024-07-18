@@ -1,0 +1,23 @@
+{% extends 'tickets/index.html' %}
+
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static  'tickets/styles/create-ticket.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="new-ticket-container">
+        <div class="ticket-details">
+            <div class="title">
+                <h2>Create New Ticket</h2>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" style="display: flex; justify-content: center; align-self: center;">Submit</button>
+            </form>
+        </div>
+        </div>
+{% endblock %}

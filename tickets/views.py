@@ -80,6 +80,22 @@ def ticketDetails(request, slug):
     return render(request, 'tickets/ticket-details.html', context)
 
 @login_required(login_url=('account_login'))
+def createTicket(request):
+    """
+    Logic for creating a new ticket
+    """
+    if request.method == 'POST':
+        form = NewTicketForm(request.POST)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.created_by = request.user
+            ticket.save()
+            return redirect('tickets-view')
+    else:
+        form = NewTicketForm()
+    return render(request, 'tickets/create-ticket.html', {'form': form})
+
+@login_required(login_url=('account_login'))
 def deleteMessage(request, msg_id):
     """
     Logic for deleting a message within the detailed view

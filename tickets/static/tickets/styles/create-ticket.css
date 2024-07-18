@@ -1,0 +1,31 @@
+.new-ticket-container {
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    padding: 10px;
+    width: fit-content;
+}
+
+.ticket-details {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: fit-content; */
+}
+
+.ticket-details form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: center;
+}
+
+.ticket-details form input,
+.ticket-details form select,
+.ticket-details form textarea,
+.ticket-details form label[type="text"] {
+    border-radius: 5px;
+    width: 100%;
+    padding: 8px;
+    margin: 8px;
+}
