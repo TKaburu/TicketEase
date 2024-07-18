@@ -9,7 +9,7 @@ class Ticket(models.Model):
     """
     STATUS = (
         ('open', 'open'),
-        ('assigned', 'assigned'),
+        ('active', 'active'),
         ('closed', 'closed'),
     )
     ticket_id = models.UUIDField(default=uuid.uuid4)

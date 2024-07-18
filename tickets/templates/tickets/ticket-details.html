@@ -36,10 +36,12 @@
                     <button type="submit">Accept Ticket</button>
                 </form>
             </div>
-        {% elif ticket.status == 'assigned' %}
+        {% elif ticket.status == 'active' %}
             <div class="accepted">
                 <h4>Assigned to: {{ ticket.assigned_to }}</h4>
             </div>
+        {% endif %}
+        {% if ticket.status == 'active' %}
             <form method="post" action="{% url 'close-ticket' slug=ticket.slug %}">
                 {% csrf_token %}
                 <button type="submit">Close Ticket</button>
