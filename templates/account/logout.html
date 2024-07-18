@@ -17,8 +17,8 @@
         </div>
         
         <div class="cancel-confirm-btns">
-            <button style="color: white;">
-                <a href="{{ request.META.HTTP_REFERER }}">Cancle</a>
+            <button>
+                <a href="{{ request.META.HTTP_REFERER }}" style="color: white;">Cancle</a>
             </button>
             {% url 'account_logout' as action_url %}
             {% element form method="post" action=action_url no_visible_fields=True %}
