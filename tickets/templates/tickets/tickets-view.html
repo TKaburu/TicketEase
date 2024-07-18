@@ -62,8 +62,8 @@
                 <div>{{ ticket.description }}</div>
                 <div>{{ ticket.status }}</div>
                 <div>{{ ticket.created_by.username }}</div>
-                {% if assingned_to %}
-                    <div>{{ ticket.assingned_to.username }}</div>
+                {% if ticket.assigned_to %}
+                    <div>{{ ticket.assigned_to.username }}</div>
                 {% else %}
                     <div><p>-</p></div>
                 {% endif %}
