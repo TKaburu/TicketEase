@@ -6,7 +6,7 @@
     <nav class="nav-links">
         <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'tickets-view' %}">Tickets</a>
-        <a href="">Dashboard</a>
+        <a href="{% url 'engineer-dashboard' user.username %}">Dashboard</a>
     </nav>
     <section class="auth">
         {% if user.is_authenticated %}
@@ -14,7 +14,7 @@
                 {% if user.avatar %}
                     <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
                 {% else %}  
-                    <img src="{% static 'media/avatars/default_avatar.svg' %}" alt="{{ user.username }}" />
+                    <img src="{% static 'media/avatars/default_avatar.svg' %}" alt="{{user.username}}" />
                 {% endif %}
                 {{user.username}}
             </a>

@@ -42,13 +42,13 @@ def ticketsView(request):
     # Get the counts for each status
     all_count = Ticket.objects.count()
     open_count = Ticket.objects.filter(status='open').count()
-    assigned_count = Ticket.objects.filter(status='assigned').count()
+    active_count = Ticket.objects.filter(status='active').count()
     closed_count = Ticket.objects.filter(status='closed').count()
 
     context = {
         'tickets': tickets,
         'open_count': open_count,
-        'assigned_count': assigned_count,
+        'active_count': active_count,
         'closed_count': closed_count,
         'all_count': all_count,
         'selected_status': status,
@@ -129,7 +129,7 @@ def acceptTicket(request, slug):
 
     if request.user.user_type == 'engineer':
     
-        ticket.status = 'assigned'
+        ticket.status = 'active'
         ticket.assigned_to = request.user
         ticket.accepted_on = datetime.datetime.now()
         ticket.save()
@@ -155,4 +155,40 @@ def closeTicket(request, slug):
 
     return redirect('tickets-view')
 
+def engineerDashboard(request, username):
+    """
+    logic for a dashboard that shows all the tickets an engineer has
+    worked on
+    Args:
+        user: the request user who is an engineer
+    """
+    current_engineer = get_object_or_404(CustomUser, username=username)
+    tickets = Ticket.objects.filter(assigned_to=current_engineer)
+    status = request.GET.get('status')
+    query = request.GET.get('Q')
 
+    if status:
+        tickets = Ticket.objects.filter(status=status)
+
+    elif query:
+        tickets = tickets.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(status__icontains=query) |
+            Q(created_by__username__icontains=query)
+        )
+
+    tickets = tickets.order_by('-status', '-created_on')
+    # Get the relative counts for the dashboard
+    all_count = Ticket.objects.count()
+    active_count = tickets.filter(status='active').count()
+    closed_count = tickets.filter(status='closed').count()
+
+    context = {
+        'tickets': tickets,
+        'all_count': all_count,
+        'active_count': active_count,
+        'closed_count': closed_count,
+        }
+
+    return render(request, 'tickets/engineer-dashboard.html', context)

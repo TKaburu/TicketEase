@@ -1,0 +1,76 @@
+{% extends 'tickets/index.html' %}
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static  'tickets/styles/dashboards.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="dashboard-container">
+        <div class="title">
+            <h1>Here are you all you Tickets</h1>
+        </div>
+        <!-- search bar -->
+        <section class="search-filters">
+            <section class="status-filters">
+                <div class="filter-btns">
+                    <button>
+                        <a href="{% url 'engineer-dashboard' username=request.user.username %}?status=" style="color: white;">All ({{ all_count }})</a>
+                    </button>
+                    |
+                    <button>
+                        <a href="{% url 'engineer-dashboard' username=request.user.username %}?status=active" style="color: white;">Active ({{ active_count }})</a>
+                    </button>
+                    |
+                    <button>
+                        <a href="{% url 'engineer-dashboard' username=request.user.username %}?status=closed" style="color: white;">Closed ({{ closed_count }})</a>
+                    </button>
+                </div>
+            </section>
+            <!-- search bar -->
+            <section class="search-bar-container">
+                    
+                <form class="search-bar method="GET" action="{% url 'tickets-view' %}">
+                    <input type="text" name="q" placeholder="Search ticket...">
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+        </section>
+        <section class="tickets">
+            {% for ticket in tickets %}
+                <div class="ticket-container">
+                    <section class="ticket-details">
+                        <div class="title">
+                            <h2 style="font-size: 25px;"> <a href="{% url 'ticket-details' slug=ticket.slug %}" style="color: rgb(201, 14, 201);">{{ ticket.title }}</a></h2>
+                        </div>                            
+                        <section class="status">
+                            <p style="text-align: center;">Status: <b>{{ ticket.status }}</b></p>
+                        </section>
+                        <div class="detail-header">
+                            <div class="created-by">
+                                <p>Created by: {{ticket.created_by}}</p>
+                            </div>
+                            <div class="date">
+                                <p>Created on: {{ticket.created_on | date:'F j, Y' }}</p>
+                            </div>
+                        </div>
+                        <section class="description">
+                            <p>{{ ticket.description | truncatechars:100 }}</p>
+                        </section>
+                    </section>
+                </div>
+                
+            {% empty %}
+                    <section class="empty">
+                        <p>You have not worked on any tickets yet. <br>
+                        Check <a href="{% url 'tickets-view' %}" style="color: rgb(201, 14, 201);;">tickets</a>
+                        to accept one.
+                        </p>
+                    </section>
+            {% endfor %}
+        </section>
+
+    </section>
+   
+
+{% endblock %}
