@@ -1,0 +1,13 @@
+{% extends 'tickets/index.html' %}
+
+{% block content %}
+    
+    {% for ticket in tickets %}
+        <h1>{{ticket.title}}</h1>
+        
+    {% empty %}
+        <div class="empty">
+            <p>There are no tickets!</p>
+        </div>
+    {% endfor%}
+{% endblock %}

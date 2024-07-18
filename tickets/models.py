@@ -17,7 +17,7 @@ class Ticket(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     status = models.CharField(max_length=100, choices=STATUS, default='open')
-    attachments = models.ImageField(null=True, upload_to='attachments/')
+    attachments = models.ImageField(null=True, blank=True, upload_to='attachments/')
     created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='created_by')
     assigned_to = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_to')
     accepted_on = models.DateTimeField(null=True, blank=True)
