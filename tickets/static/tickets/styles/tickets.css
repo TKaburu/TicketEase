@@ -15,19 +15,6 @@
     align-items: center;
 }
 
-.filter-btns button {
-    background-color: var(--button-color);
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    margin: 0 5px;
-}
-
-.filter-btns a {
-    color: white;
-    text-decoration: none;
-}
-
 .ticket-list {
     display: flex;
     flex-direction: column;
