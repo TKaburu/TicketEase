@@ -1,0 +1,45 @@
+/*< ==================== Engineers Dashboard styles ====================> */
+.dashboard-container {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.search-filters {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px 0;
+}
+
+.tickets {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around; 
+    padding: 20px;
+}
+
+.ticket-details {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    width: 350px;
+    color: var(--text-color);
+}
+
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    
+}
+
+.description p {
+    text-align: center;
+}
