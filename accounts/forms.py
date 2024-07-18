@@ -10,6 +10,7 @@ class CustomSignUpForm(SignupForm):
     first_name = forms.CharField(max_length=30, label='First Name')
     last_name = forms.CharField(max_length=30, label='Last Name')
     bio = forms.CharField(widget=forms.Textarea, label='Bio')
+    user_type = forms.ChoiceField(choices=CustomUser.USER_TYPE, label='User Type')
     avatar = forms.ImageField(required=False, label='Avatar')
 
     def save(self, request):
@@ -20,6 +21,7 @@ class CustomSignUpForm(SignupForm):
 
         new_user.first_name = self.cleaned_data['first_name']
         new_user.last_name = self.cleaned_data['last_name']
+        new_user.user_type = self.cleaned_data['user_type']
         # new_user.title = self.cleaned_data['title']
         # new_user.department = self.cleaned_data['department']
         new_user.avatar = self.cleaned_data['avatar']
@@ -45,4 +47,4 @@ class UserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ['first_name', 'last_name', 'username', 'avatar', 'bio' ]
