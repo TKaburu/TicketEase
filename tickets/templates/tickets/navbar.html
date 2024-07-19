@@ -3,13 +3,22 @@
     <div class="logo">
         <a href="{% url 'home' %}">TicketEase</a>
     </div>
+
     <nav class="nav-links">
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'tickets-view' %}">Tickets</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'engineer-dashboard' user.username %}">Dashboard</a>
+        {% if request.user.user_type == 'engineer' %}
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'tickets-view' %}">Tickets</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'engineer-dashboard' user.username %}">Dashboard</a>
+            {% endif %}
+        {% elif request.user.user_type == 'client' %}
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'client-dashboard' user.username %}">Dashboard</a>
+            {% endif %}
         {% endif %}
     </nav>
+
     <section class="auth">
         {% if user.is_authenticated %}
             <a href="#" class="avatar avatar--medium active">

@@ -116,6 +116,47 @@ def deleteMessage(request, msg_id):
     
     return render(request, 'tickets/delete.html', {'obj': message})
 
+# <==================== Clientss views ====================>
+
+def clientDashboard(request, username):
+    """
+    logic for a dashboard that shows all the tickets a client has
+    Creates on
+    Args:
+        username: the request user who is a client
+    """
+    current_client = get_object_or_404(CustomUser, username=username)
+    tickets = Ticket.objects.filter(created_by=current_client)
+    status = request.GET.get('status')
+    query = request.GET.get('Q')
+
+    if status:
+        tickets = Ticket.objects.filter(status=status)
+
+    elif query:
+        tickets = tickets.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(status__icontains=query) |
+            Q(assigned_to__username__icontains=query)
+        )
+
+    tickets = tickets.order_by('-status', '-created_on')
+    # Get the relative counts for the dashboard
+    all_count = Ticket.objects.count()
+    active_count = tickets.filter(status='active').count()
+    closed_count = tickets.filter(status='closed').count()
+
+    context = {
+        'tickets': tickets,
+        'all_count': all_count,
+        'active_count': active_count,
+        'closed_count': closed_count,
+        }
+
+    return render(request, 'tickets/client-dashboard.html', context)
+
+
 # <==================== Engineers views ====================>
 
 @login_required(login_url=('account_login'))
