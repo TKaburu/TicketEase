@@ -38,12 +38,14 @@
                     <button type="submit">Search</button>
                 </form>
             </section>
-            <section class="create-ticket">
-                <form method="post" action="{% url 'create-ticket' %}">
-                    {% csrf_token %}
-                    <button type="submit"><a href="{% url 'create-ticket' %}" style="color: white;">Add A Ticket</a></button>
-                </form>
-            </section>
+            {% if request.user.user_type == 'client' %}
+                <section class="create-ticket">
+                    <form method="post" action="{% url 'create-ticket' %}">
+                        {% csrf_token %}
+                        <button type="submit"><a href="{% url 'create-ticket' %}" style="color: white;">Add A Ticket</a></button>
+                    </form>
+                </section>
+            {% endif %}
         </section>
         <section class="ticket-list">
             <div class="ticket-row header">
