@@ -41,17 +41,14 @@
                 <h4>Assigned to: {{ ticket.assigned_to }}</h4>
             </div>
         {% endif %}
-        {% if ticket.status == 'active' %}
+        {% if ticket.status == 'active' and request.user.user_type == 'engineer'%}
             <form method="post" action="{% url 'close-ticket' slug=ticket.slug %}">
                 {% csrf_token %}
                 <button type="submit">Close Ticket</button>
             </form>
         {% endif %}
-
         </div>
-            
-            
-        
+
     </div>
     <div class="message-client-sections">
         <section class="messages-section">
