@@ -73,6 +73,8 @@ def ticketDetails(request, slug):
             ticket=ticket,
             message=request.POST.get('message')
         )
+        return redirect('ticket-details', slug=slug)
+
     context = {
         'ticket': ticket,
         'msg': msg

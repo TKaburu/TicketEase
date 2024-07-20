@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # 'channels',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +82,16 @@ AUTHENTICATION_BACKENDS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#         <==================== Channels settings ====================>
+
+# ASGI_APPLICATION = 'TicketEaseProject.asgi.application'
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels.layers.InMemoryChannelLayer",
+#     }
+# }
 
 ROOT_URLCONF = 'TicketEaseProject.urls'
 
