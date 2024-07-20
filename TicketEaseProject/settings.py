@@ -81,7 +81,18 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',  # will use allauth for authentication
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#         <==================== email settings ====================>
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Host and port
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
+# Host user and password
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  #  for sending emails
 
 #         <==================== Channels settings ====================>
 
