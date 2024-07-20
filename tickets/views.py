@@ -198,6 +198,7 @@ def closeTicket(request, slug):
 
     return redirect('tickets-view')
 
+@login_required(login_url=('account_login'))
 def engineerDashboard(request, username):
     """
     logic for a dashboard that shows all the tickets an engineer has
@@ -223,7 +224,7 @@ def engineerDashboard(request, username):
 
     tickets = tickets.order_by('-status', '-created_on')
     # Get the relative counts for the dashboard
-    all_count = Ticket.objects.count()
+    all_count = tickets.count()
     active_count = tickets.filter(status='active').count()
     closed_count = tickets.filter(status='closed').count()
 
