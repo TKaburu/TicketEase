@@ -169,6 +169,12 @@ button:hover {
 /* <============= user authentication ============> */
 
 .account-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-content {
     box-shadow: var(--box-shadow);
     margin: 10px;
     padding: 10px;

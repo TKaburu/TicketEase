@@ -7,61 +7,63 @@
 {% endblock head_title %}
 {% block content %}
     <div class="account-container">
-        <section class="account-auth">
-            <div class="title">
-                <h1> Login </h1>
-            </div>
-            {% if not SOCIALACCOUNT_ONLY %}
-                {% url 'account_login' as login_url %}
-                {% element form form=form method="post" action=login_url tags="entrance,login" %}
-                    {% slot body %}
-                        {% csrf_token %}
-                        <p>
-                            {{ form.login.errors | safe }}
-                            <label for="id_login">{% trans "Email or Username:" %}</label>
-                            {{ form.login }}
-                        </p>
-                        <p>
-                            {{ form.password.errors | safe }}
-                            <label for="id_password">{% trans "Password:" %}</label>
-                            {{ form.password }}
-                        </p>
-                        {{ redirect_field }}
-                        <div class="remember-me-password-reset">
-                            <div class="remember-me">
-                                <label for="id_remember">{{ form.remember_me.label }}</label>
-                                {{ form.remember_me }}
+        <div class="account-content">
+            <section class="account-auth">
+                <div class="title">
+                    <h1> Login </h1>
+                </div>
+                {% if not SOCIALACCOUNT_ONLY %}
+                    {% url 'account_login' as login_url %}
+                    {% element form form=form method="post" action=login_url tags="entrance,login" %}
+                        {% slot body %}
+                            {% csrf_token %}
+                            <p>
+                                {{ form.login.errors | safe }}
+                                <label for="id_login">{% trans "Email or Username:" %}</label>
+                                {{ form.login }}
+                            </p>
+                            <p>
+                                {{ form.password.errors | safe }}
+                                <label for="id_password">{% trans "Password:" %}</label>
+                                {{ form.password }}
+                            </p>
+                            {{ redirect_field }}
+                            <div class="remember-me-password-reset">
+                                <div class="remember-me">
+                                    <label for="id_remember">{{ form.remember_me.label }}</label>
+                                    {{ form.remember_me }}
+                                </div>
+                                <div class="password-reset link">
+                                    <a href="{% url 'account_reset_password' %}" style="color: rgb(201, 14, 201);">{% trans "Forgot Password?" %}</a>
+                                </div>
                             </div>
-                            <div class="password-reset link">
-                                <a href="{% url 'account_reset_password' %}" style="color: rgb(201, 14, 201);">{% trans "Forgot Password?" %}</a>
-                            </div>
-                        </div>
-                    {% endslot %}
-                    {% slot actions %}
-                    <p>Don't have an account? Register <a class="link" href="{% url 'account_signup' %}">here</a> </p>
-                        <!-- login button -->
-                         <div class="auth-btns">
-                            {% element button type="submit" tags="prominent,login" %}
-                                {% trans "login" %}
-                            {% endelement %}
-                         </div>
-                    {% endslot %}
-                {% endelement %}
-            {% endif %}
-            {% if LOGIN_BY_CODE_ENABLED %}
-                {% element hr %}
-                {% endelement %}
-                {% element h2 %}
-                    {% element button href=request_login_code_url tags="prominent,login,secondary" %}
-                        {% trans "Mail me a sign-in code" %}
+                        {% endslot %}
+                        {% slot actions %}
+                        <p>Don't have an account? Register <a class="link" href="{% url 'account_signup' %}">here</a> </p>
+                            <!-- login button -->
+                             <div class="auth-btns">
+                                {% element button type="submit" tags="prominent,login" %}
+                                    {% trans "login" %}
+                                {% endelement %}
+                             </div>
+                        {% endslot %}
                     {% endelement %}
-                {% endelement %}
-            {% endif %}
-            {% if SOCIALACCOUNT_ENABLED %}
-                {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-            {% endif %}
-    
-        </section>
+                {% endif %}
+                {% if LOGIN_BY_CODE_ENABLED %}
+                    {% element hr %}
+                    {% endelement %}
+                    {% element h2 %}
+                        {% element button href=request_login_code_url tags="prominent,login,secondary" %}
+                            {% trans "Mail me a sign-in code" %}
+                        {% endelement %}
+                    {% endelement %}
+                {% endif %}
+                {% if SOCIALACCOUNT_ENABLED %}
+                    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                {% endif %}
+        
+            </section>
+        </div>
     </div>
     
     
