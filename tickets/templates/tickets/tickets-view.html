@@ -56,25 +56,34 @@
                 <div>Created By</div>
                 <div>Assigned To</div>
             </div>
-            
-            {% for ticket in tickets %}
-            <div class="ticket-row">
-                <div> <a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.ticket_id }}</a></div>
-                <div>{{ ticket.title }}</div>
-                <div>{{ ticket.description }}</div>
-                <div>{{ ticket.status }}</div>
-                <div>{{ ticket.created_by.username }}</div>
-                {% if ticket.assigned_to %}
-                    <div>{{ ticket.assigned_to.username }}</div>
-                {% else %}
-                    <div><p>-</p></div>
-                {% endif %}
-            {% empty %}
+
+            <!-- When there are no tickets or if a status has no ticket -->
+            {% if not tickets %}
                 <div class="empty">
-                    <p>There are no tickets</p>
+                    {% if open_count == 0 %}
+                        <p> There are no open tickets.</p>
+                    {% elif request.GET.status == 'active' %}
+                        <p> You have no active tickets.</p>
+                    {% elif closed_count == 0 %}
+                        <p>You have no closed tickets.</p>
+                    {% endif %}
                 </div>
-            </div>
-            {% endfor %}
+            {% else %}
+                {% for ticket in tickets %}
+                    <div class="ticket-row">
+                        <div> <a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.ticket_id }}</a></div>
+                        <div>{{ ticket.title }}</div>
+                        <div>{{ ticket.description }}</div>
+                        <div>{{ ticket.status }}</div>
+                        <div>{{ ticket.created_by.username }}</div>
+                        {% if ticket.assigned_to %}
+                            <div>{{ ticket.assigned_to.username }}</div>
+                        {% else %}
+                            <div><p>-</p></div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </section>
     </section>
 
