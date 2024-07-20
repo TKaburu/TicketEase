@@ -119,7 +119,7 @@ def deleteMessage(request, msg_id):
     return render(request, 'tickets/delete.html', {'obj': message})
 
 # <==================== Clientss views ====================>
-
+@login_required(login_url=('account_login'))
 def clientDashboard(request, username):
     """
     logic for a dashboard that shows all the tickets a client has
@@ -145,7 +145,7 @@ def clientDashboard(request, username):
 
     tickets = tickets.order_by('-status', '-created_on')
     # Get the relative counts for the dashboard
-    all_count = Ticket.objects.count()
+    all_count = tickets.count()
     active_count = tickets.filter(status='active').count()
     closed_count = tickets.filter(status='closed').count()
 
