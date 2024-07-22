@@ -115,6 +115,22 @@ button:hover {
     justify-content: center;
 }
 
+.django-messages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.messages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: var(--color-bg-main); */
+    padding: 15px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
 /* <============= end of universal styling ============> */
 
 /* <=============  navbar styling ============> */

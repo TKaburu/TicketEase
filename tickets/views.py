@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail, EmailMessage  # for sending emails
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
@@ -15,6 +16,31 @@ def home(request):
 
     context = {'tickets': tickets}
     return render(request, 'tickets/home.html', context)
+
+def contact(request):
+    """
+    logic for the contact page
+    """
+
+    if request.method == 'POST':
+        sender_name = request.POST.get('sender-name', '')
+        sender_email = request.POST.get('sender-email', '')
+        message_title = request.POST.get('message-title', '')
+        message_body = request.POST.get('message-body', '')
+
+        email = EmailMessage(
+            subject=message_title,
+            body=message_body,
+            from_email='ticketwithease@gmail.com',
+            to=['ticketwithease@gmail.com'],
+            headers={'Reply-To': sender_email}
+        )
+        email.send()
+        messages.success(request, f'The message has been sent. We will get back to you\
+                         as soon as possible!')
+        return redirect('contact')
+    
+    return render(request, 'tickets/contact.html')
 
 def ticketsView(request):
     """
@@ -81,21 +107,6 @@ def ticketDetails(request, slug):
     }
     return render(request, 'tickets/ticket-details.html', context)
 
-@login_required(login_url=('account_login'))
-def createTicket(request):
-    """
-    Logic for creating a new ticket
-    """
-    if request.method == 'POST':
-        form = NewTicketForm(request.POST)
-        if form.is_valid():
-            ticket = form.save(commit=False)
-            ticket.created_by = request.user
-            ticket.save()
-            return redirect('tickets-view')
-    else:
-        form = NewTicketForm()
-    return render(request, 'tickets/create-ticket.html', {'form': form})
 
 @login_required(login_url=('account_login'))
 def deleteMessage(request, msg_id):
@@ -157,6 +168,22 @@ def clientDashboard(request, username):
         }
 
     return render(request, 'tickets/client-dashboard.html', context)
+
+@login_required(login_url=('account_login'))
+def createTicket(request):
+    """
+    Logic for creating a new ticket
+    """
+    if request.method == 'POST':
+        form = NewTicketForm(request.POST)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.created_by = request.user
+            ticket.save()
+            return redirect('tickets-view')
+    else:
+        form = NewTicketForm()
+    return render(request, 'tickets/create-ticket.html', {'form': form})
 
 
 # <==================== Engineers views ====================>

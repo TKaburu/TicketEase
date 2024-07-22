@@ -1,0 +1,42 @@
+.contact-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact {
+    box-shadow: var(--box-shadow);
+    margin: 10px;
+    padding: 10px;
+    width: fit-content;
+}
+
+.contact-content {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sender-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-content form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: center;
+}
+
+.contact-content form input,
+.contact-content form select,
+.contact-content form textarea,
+.contact-content form label[type="text"] {
+    border-radius: 5px;
+    width: 100%;
+    padding: 8px;
+    margin: 8px;
+}
