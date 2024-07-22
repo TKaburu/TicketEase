@@ -11,11 +11,15 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'engineer-dashboard' user.username %}">Dashboard</a>
             {% endif %}
+            <a href="{% url 'contact' %}">Contact</a>
         {% elif request.user.user_type == 'client' %}
             <a href="{% url 'home' %}">Home</a>
             {% if user.is_authenticated %}
                 <a href="{% url 'client-dashboard' user.username %}">Dashboard</a>
             {% endif %}
+            <a href="{% url 'contact' %}">Contact</a>
+        {% else %}
+            <a href="{% url 'contact' %}">Contact</a>
         {% endif %}
     </nav>
 
