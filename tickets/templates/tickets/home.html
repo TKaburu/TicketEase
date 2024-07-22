@@ -1,13 +1,68 @@
 {% extends 'tickets/index.html' %}
 
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static  'tickets/styles/home.css' %}">
+{% endblock %}
+
 {% block content %}
-    
-    {% for ticket in tickets %}
-        <h1>{{ticket.title}}</h1>
-        
-    {% empty %}
-        <div class="empty">
-            <p>There are no tickets!</p>
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to TicketEase</h1>
+            <p>Your one-stop solution for efficient ticket management.</p>
+            <button><a href="{% url 'account_signup' %}" class="btn-primary">Get Started</a></button>
         </div>
-    {% endfor%}
+        <!-- <img src="{% static '../media/landing-page/hero-bg.png' %}" alt=""> -->
+        <img src="media\landing-page\hero-bg.png" alt="Hero Background" class="hero-bg">
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About TicketEase</h2>
+            <p>TicketEase is designed to simplify the process of managing tickets for customer queries and issues. Whether you are a freelancer or part of a customer service team, our application helps you organize and track client requests with ease.</p>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="features-list">
+                <div class="feature">
+                    <h3>Ticket Management</h3>
+                    <img src="{% static '../media/landing-page/ticket-management.png' %}" alt="ticket management">
+                    <p>Organize and manage client tickets efficiently.</p>
+                </div>
+                <div class="feature">
+                    <h3>Messaging application</h3>
+                    <img src="{% static '../media/landing-page/message-image.png' %}" alt="message application">
+                    <p>Chat with clients and resolve issues within the application.</p>
+                </div>
+                <div class="feature">
+                    <h3>Search functionality</h3>
+                    <img src="{% static '../media/landing-page/search.png' %}" alt="Search">
+                    <p>Search a ticket by its name, ticket number, status, who created it and who it is assigned to.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form method="post" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="sender-name" placeholder="Enter your name" required>
+                    <input type="email" name="sender-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="message-title" placeholder="Title" required>
+                    <textarea name="message-body" id="body" placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    {% include 'tickets/footer.html'%}
 {% endblock %}
