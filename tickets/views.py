@@ -28,14 +28,12 @@ def contact(request):
         message_title = request.POST.get('message-title', '')
         message_body = request.POST.get('message-body', '')
 
-        email = EmailMessage(
-            subject=message_title,
-            body=message_body,
-            from_email='ticketwithease@gmail.com',
-            to=['ticketwithease@gmail.com'],
-            headers={'Reply-To': sender_email}
+        send_mail (
+            message_title,
+            message_body,
+            sender_email,
+            ['ticketwithease@gmail.com'],
         )
-        email.send()
         messages.success(request, f'The message has been sent. We will get back to you\
                          as soon as possible!')
         return redirect('contact')
@@ -103,7 +101,7 @@ def ticketDetails(request, slug):
 
     context = {
         'ticket': ticket,
-        'msg': msg
+        'msg': msg,
     }
     return render(request, 'tickets/ticket-details.html', context)
 
@@ -207,7 +205,7 @@ def acceptTicket(request, slug):
     #     messages.warning(request, f'Only engineers can accept a ticket!')
     #     return redirect('ticket_details', slug=slug)
 
-    return redirect('tickets-view')
+    return redirect('tickets-detail')
 
 @login_required(login_url=('account_login'))
 def closeTicket(request, slug):

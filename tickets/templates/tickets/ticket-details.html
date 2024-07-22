@@ -23,6 +23,7 @@
     </section>
     <div class="title">
         <h1>{{ticket.title}}</h1>
+        <p style="color: var(--text-color); font-size: 20px;">{{ ticket.description }}</p>
     </div>
     <div class="ticket-status" style="display: flex; justify-content: space-around;">
         <div class="status">
@@ -100,8 +101,8 @@
                     <div>Status</div>
                 </div>
                 <div class="ticket-row">
-                    <div class="ticket_number"> <a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.ticket_id }}</a></div>
-                    <div><a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.title }}</a></div>
+                    <div class="ticket_number"><a href="{% url 'ticket-details' slug=ticket.slug %}" style="color: var(--text-color);">{{ ticket.ticket_id }}</a></div>
+                    <div><a href="{% url 'ticket-details' slug=ticket.slug %}" style="color: var(--text-color);">{{ ticket.title }}</a></div>
                     <div>{{ ticket.status }}</div>
                 </div>
             </div>

@@ -6,6 +6,7 @@
     --text-color: rgba(52, 19, 19, 0.733);
     --text-color-light: white;
     --title-color: rgb(201, 14, 201);
+    --footer-bg-color: #f2f2f2;
 
 }
 
@@ -172,7 +173,6 @@ button:hover {
     justify-content: flex-end;
     gap: 10px;
 }
-
 
 /* <============= end of navbar ============> */
 

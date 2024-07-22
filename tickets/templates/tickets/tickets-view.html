@@ -38,14 +38,6 @@
                     <button type="submit">Search</button>
                 </form>
             </section>
-            {% if request.user.user_type == 'client' %}
-                <section class="create-ticket">
-                    <form method="post" action="{% url 'create-ticket' %}">
-                        {% csrf_token %}
-                        <button type="submit"><a href="{% url 'create-ticket' %}" style="color: white;">Add A Ticket</a></button>
-                    </form>
-                </section>
-            {% endif %}
         </section>
         <section class="ticket-list">
             <div class="ticket-row header">
@@ -73,7 +65,7 @@
                     <div class="ticket-row">
                         <div> <a href="{% url 'ticket-details' slug=ticket.slug %}">{{ ticket.ticket_id }}</a></div>
                         <div>{{ ticket.title }}</div>
-                        <div>{{ ticket.description }}</div>
+                        <div>{{ ticket.description | truncatechars:100 }}</div>
                         <div>{{ ticket.status }}</div>
                         <div>{{ ticket.created_by.username }}</div>
                         {% if ticket.assigned_to %}

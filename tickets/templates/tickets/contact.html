@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block css %} 
-    <link rel="stylesheet" href="{% static  'tickets/styles/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'tickets/styles/contact.css' %}">
 {% endblock %}
-
 
 {% block content %}
     <div class="contact-container">
@@ -14,17 +13,17 @@
                     <h1>Contact Us</h1>
                 </div>
                 <section class="action">
-                    <p>Have any questions or quaries? <b style="color: var(--title-color) ">Write </b> to us down below</p>
+                    <p>Have any questions or queries? <b>Write</b> to us down below.</p>
                 </section>
                 <form method="post" action="{% url 'contact' %}">
                     {% csrf_token %}
                     <div class="sender-info">
                         <input type="text" name="sender-name" placeholder="Enter your name">
-                        <input type="email" name="senders email" placeholder="Enter your email">
+                        <input type="email" name="sender-email" placeholder="Enter your email">
                     </div>
                     <div class="message-info">
                         <input type="text" name="message-title" placeholder="Title">
-                        <textarea name="message-body" id="body">Message</textarea>
+                        <textarea name="message-body" id="body" placeholder="Message"></textarea>
                     </div>
                     <div class="auth-btns">
                         <button type="submit">Send Message</button>
@@ -33,5 +32,5 @@
             </section>
         </div>
     </div>
-
+    {% include 'tickets/footer.html' %}
 {% endblock %}
