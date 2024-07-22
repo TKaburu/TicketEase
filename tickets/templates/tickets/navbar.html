@@ -29,7 +29,7 @@
                 {% if user.avatar %}
                     <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
                 {% else %}  
-                    <img src="{% static 'media/avatars/default_avatar.svg' %}" alt="{{user.username}}" />
+                    <img src="{% static '../media/avatars/default_avatar.svg' %}" alt="{{user.username}}" />
                 {% endif %}
                 {{user.username}}
             </a>
