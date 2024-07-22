@@ -12,6 +12,15 @@
 </head>
 <body>
     {% include 'tickets/navbar.html' %}
+    <div class="django-messages" style="display: flex; align-items: center; justify-content: center;">
+        {% if messages %}
+        <ul class="messages" style="text-decoration: none;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
     <div class="content-container">
         {% block content %}
 
