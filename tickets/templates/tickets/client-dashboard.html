@@ -70,6 +70,18 @@
                         <section class="description">
                             <p>{{ ticket.description | truncatechars:100 }}</p>
                         </section>
+                        <div class="update-delete auth-btns" style="justify-content: space-around; margin: 10px 0;">
+                            {% if request.user.user_type == 'client' %}
+                                <form action="{% url 'update-ticket' slug=ticket.slug %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link">Update</button>
+                                </form>
+                            {% endif %}
+                            <form action="{% url 'delete-ticket' slug=ticket.slug %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link">Delete</button>
+                            </form>
+                        </div>
                     </section>
                 </div>
             {% empty %}

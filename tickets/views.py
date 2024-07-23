@@ -50,6 +50,7 @@ def ticketsView(request):
     tickets = Ticket.objects.all()
     status = request.GET.get('status')  # to filter by status
     query = request.GET.get('q')  # search parameter
+
     if status:
         tickets = Ticket.objects.filter(status=status)
 
@@ -75,7 +76,7 @@ def ticketsView(request):
         'active_count': active_count,
         'closed_count': closed_count,
         'all_count': all_count,
-        'selected_status': status,
+        'selected_status': status
     }
     return render(request, 'tickets/tickets-view.html', context)
 
@@ -105,24 +106,56 @@ def ticketDetails(request, slug):
     }
     return render(request, 'tickets/ticket-details.html', context)
 
+@login_required(login_url=('account_login'))
+def deleteTicket(request, slug):
+    """
+    Logic for deleting a ticket
+    """
+    ticket = get_object_or_404(Ticket, slug=slug)
+
+    # only created_by and assigne_by can delete the ticket
+    if request.user != ticket.created_by and request.user != ticket.assigned_to:
+        messages.warning(request, f'You do not have permission to delete this ticket!')
+        if request.user.user_type == 'client':
+            return redirect('client-dashboard', username=request.user.username)
+        elif request.user.user_type == 'engineer':
+            return redirect('engineer-dashboard', username=request.user.username)
+        else:
+            return redirect('home')
+
+    if request.method == 'POST':
+        ticket.delete()
+        messages.success(request, f'Ticket has been delete!')
+
+        # client redirected to their dashboard, same as engineer
+        if request.user.user_type == 'client':
+            return redirect('client-dashboard', username=request.user.username)
+        elif request.user.user_type == 'engineer':
+            return redirect('engineer-dashboard', username=request.user.username)
+        else:
+            return redirect('home')
+
+    context = { 'obj': ticket }
+    return redirect(request, 'tickets/delete.html', context)
+
 
 @login_required(login_url=('account_login'))
-def deleteMessage(request, msg_id):
+def deleteMessage(request, msgId):
     """
     Logic for deleting a message within the detailed view
     Args:
-        msg_id: The id of the messahge to be deleted
+        msgId: The id of the message to be deleted
     """
-    message = get_object_or_404(TicketMessage, pk=msg_id)
-    ticket_slug = message.ticket.slug
+    message = get_object_or_404(TicketMessage, pk=msgId)
 
     if request.method == 'POST':
         if request.user == message.sender:
             message.delete()
             messages.success(request, f'The message has been deleted')
+            return redirect('ticket-details', slug=message.ticket.slug)
         else:
             messages.warning(request, f'You do not have permission to delete this message!')
-            return redirect('ticket-details', slug=ticket_slug)
+            return redirect('ticket-details', slug=message.ticket.slug)
         
     
     return render(request, 'tickets/delete.html', {'obj': message})
@@ -168,17 +201,46 @@ def clientDashboard(request, username):
     return render(request, 'tickets/client-dashboard.html', context)
 
 @login_required(login_url=('account_login'))
+def updateTicket(request, slug):
+    """
+    logic for updating a ticket
+    """
+    ticket = get_object_or_404(Ticket, slug=slug)
+
+    # check if request.user is the one who created the ticket
+    if request.user != ticket.created_by:
+        messages.error(request, f'You do not have permission to update this ticket')
+        return redirect('ticket-details')
+    
+    if request.method == 'POST':
+        form = NewTicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your ticket has been updated')
+            return redirect ('client-dashboard', username=request.user)
+        
+        else:
+            messages.error(request, f'Something went wrong. Check your inputs and try again')
+
+    else:    
+        form = NewTicketForm(instance=ticket)
+
+    context = {'form': form}
+
+    return render(request, 'tickets/update-ticket.html', context)
+
+@login_required(login_url=('account_login'))
 def createTicket(request):
     """
     Logic for creating a new ticket
     """
     if request.method == 'POST':
-        form = NewTicketForm(request.POST)
+        form = NewTicketForm(request.POST, request.FILES)
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.created_by = request.user
             ticket.save()
-            return redirect('tickets-view')
+            return redirect('client-dashboard', username=request.user)
     else:
         form = NewTicketForm()
     return render(request, 'tickets/create-ticket.html', {'form': form})
@@ -205,7 +267,7 @@ def acceptTicket(request, slug):
     #     messages.warning(request, f'Only engineers can accept a ticket!')
     #     return redirect('ticket_details', slug=slug)
 
-    return redirect('tickets-detail')
+    return redirect('ticket-details', slug=slug)
 
 @login_required(login_url=('account_login'))
 def closeTicket(request, slug):

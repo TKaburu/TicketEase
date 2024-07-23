@@ -1,0 +1,26 @@
+{% extends 'tickets/index.html' %}
+
+{% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static  'tickets/styles/create-ticket.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="new-ticket-container">
+        <section class="ticket-content">
+            <div class="ticket-details">
+                <div class="title">
+                    <h2>Update Ticket</h2>
+                </div>
+                <div class="update-delete" style="display: flex; align-items: center; justify-content: center;">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="auth-btns">Update Ticket</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
