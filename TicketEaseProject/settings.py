@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 AUTH_USER_MODEL = 'accounts.CustomUser'  # Django to use my custom user rather than built in User
 
-LOGIN_URL = 'accounts_login'
+LOGIN_URL = 'account_login'
 LOGIN_URL_REDIRECT = 'home'
 
 # allauth settings
