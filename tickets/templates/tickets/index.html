@@ -14,7 +14,7 @@
     {% include 'tickets/navbar.html' %}
     <div class="django-messages" style="display: flex; align-items: center; justify-content: center;">
         {% if messages %}
-        <ul class="messages" style="text-decoration: none;">
+        <ul class="messages" style="text-decoration: none; font-size: 20px;">
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
