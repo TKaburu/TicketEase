@@ -25,6 +25,28 @@
 
     <section class="auth">
         {% if user.is_authenticated %}
+            <div class="dropdown">
+                <a href="#" class="avatar avatar--medium active dropdown-toggle">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
+                    {% else %}  
+                        <img src="{% static '../media/avatars/default_avatar.svg' %}" alt="{{user.username}}" />
+                    {% endif %}
+                    {{user.username}}
+                </a>
+                <div class="dropdown-menu">
+                    <a href="{% url 'account_change_password' %}">Change Password</a>
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                </div>
+            </div>
+        {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+            <a href="{% url 'account_signup' %}">Register</a>
+        {% endif %}
+    </section>
+
+    <!-- <section class="auth">
+        {% if user.is_authenticated %}
             <a href="#" class="avatar avatar--medium active">
                 {% if user.avatar %}
                     <img src="{{ user.avatar.url }}" alt="{{ user.username }}" />
@@ -38,5 +60,5 @@
             <a href="{% url 'account_login' %}">Login</a>
             <a href="{% url 'account_signup' %}">Register</a>
         {% endif %}
-    </section>
+    </section> -->
 </section>
