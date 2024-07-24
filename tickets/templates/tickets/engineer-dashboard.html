@@ -8,7 +8,7 @@
 {% block content %}
     <section class="dashboard-container">
         <div class="title">
-            <h1>Here are you all you Tickets</h1>
+            <h1>Here are your Tickets</h1>
         </div>
         <!-- search bar -->
         <section class="search-filters">
@@ -60,7 +60,7 @@
                         <div class="update-delete auth-btns">
                             <form action="{% url 'delete-ticket' slug=ticket.slug %}" method="post" style="display: inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-link" style="color: rgb(201, 14, 201); text-decoration: underline;">Delete</button>
+                                <button type="submit" class="btn btn-link" style="color: rgb(250, 250, 250);">Delete</button>
                             </form>
                         </div>
                     </section>

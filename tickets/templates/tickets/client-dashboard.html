@@ -8,7 +8,7 @@
 {% block content %}
     <section class="dashboard-container">
         <div class="title">
-            <h1>Here are you all you Tickets</h1>
+            <h1>Here are your Tickets</h1>
         </div>
 
         <!-- status filters -->
@@ -71,12 +71,12 @@
                             <p>{{ ticket.description | truncatechars:100 }}</p>
                         </section>
                         <div class="update-delete auth-btns" style="justify-content: space-around; margin: 10px 0;">
-                            {% if request.user.user_type == 'client' %}
+                            <!-- {% if request.user.user_type == 'client' %}
                                 <form action="{% url 'update-ticket' slug=ticket.slug %}" method="post">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-link">Update</button>
                                 </form>
-                            {% endif %}
+                            {% endif %} -->
                             <form action="{% url 'delete-ticket' slug=ticket.slug %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-link">Delete</button>
